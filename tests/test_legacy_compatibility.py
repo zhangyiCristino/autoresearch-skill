@@ -44,6 +44,8 @@ class LegacyCompatibilityTests(unittest.TestCase):
             "/plugin install autoresearch@autoresearch-skill",
             "git clone https://github.com/zhangyiCristino/autoresearch-skill.git",
             "cp -r autoresearch-skill/skills/autoresearch ~/.claude/skills/",
+            "npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch",
+            "npx skills use zhangyiCristino/autoresearch-skill@autoresearch",
             "/autoresearch",
             "skills/autoresearch/SKILL.md",
         )
@@ -88,11 +90,11 @@ class LegacyCompatibilityTests(unittest.TestCase):
         chinese = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
         for text in (english, chinese):
             self.assertIn(
-                "npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch",
+                "npx skills add zhangyiCristino/researchhelm --skill autoresearch",
                 text,
             )
             self.assertIn(
-                "npx skills use zhangyiCristino/autoresearch-skill@autoresearch",
+                "npx skills use zhangyiCristino/researchhelm@autoresearch",
                 text,
             )
             self.assertIn("https://github.com/vercel-labs/skills", text)

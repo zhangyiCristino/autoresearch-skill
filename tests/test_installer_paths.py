@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL_SKILL = ROOT / "skills" / "autoresearch" / "SKILL.md"
 PINNED_PACKAGE = "skills@1.5.16"
-REPOSITORY = "zhangyiCristino/autoresearch-skill"
+REPOSITORY = "zhangyiCristino/researchhelm"
 PROJECT_TARGETS = (
     "universal",
     "cursor",

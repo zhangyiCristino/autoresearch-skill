@@ -13,12 +13,27 @@ EXPECTED_OPENAI_YAML = """interface:
 policy:
   allow_implicit_invocation: true
 """
+PRIMARY_REPOSITORY = "zhangyiCristino/researchhelm"
+LEGACY_REPOSITORY = "zhangyiCristino/autoresearch-skill"
 CLAUDE_INSTALL_CONTRACT = (
-    "/plugin marketplace add zhangyiCristino/autoresearch-skill",
+    f"/plugin marketplace add {PRIMARY_REPOSITORY}",
     "/plugin install autoresearch@autoresearch-skill",
-    "git clone https://github.com/zhangyiCristino/autoresearch-skill.git",
-    "cp -r autoresearch-skill/skills/autoresearch ~/.claude/skills/",
+    f"git clone https://github.com/{PRIMARY_REPOSITORY}.git",
+    "cp -r researchhelm/skills/autoresearch ~/.claude/skills/",
 )
+LEGACY_REDIRECT_CONTRACT = (
+    f"/plugin marketplace add {LEGACY_REPOSITORY}",
+    f"git clone https://github.com/{LEGACY_REPOSITORY}.git",
+    "cp -r autoresearch-skill/skills/autoresearch ~/.claude/skills/",
+    f"npx skills add {LEGACY_REPOSITORY} --skill autoresearch",
+    f"npx skills use {LEGACY_REPOSITORY}@autoresearch",
+)
+
+
+def markdown_section(text: str, heading: str) -> str:
+    start = text.index(heading)
+    end = text.find("\n## ", start + len(heading))
+    return text[start:] if end == -1 else text[start:end]
 
 
 class RepositoryContractTests(unittest.TestCase):
@@ -103,6 +118,30 @@ class RepositoryContractTests(unittest.TestCase):
         for command in CLAUDE_INSTALL_CONTRACT:
             self.assertEqual(1, readme.count(command), command)
         self.assertEqual(1, readme.count("invoke `/autoresearch`"))
+
+    def test_primary_repository_metadata_and_commands_are_exact(self):
+        plugin = json.loads(
+            (ROOT / ".claude-plugin" / "plugin.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(
+            "https://github.com/zhangyiCristino/researchhelm",
+            plugin["homepage"],
+        )
+        self.assertEqual(plugin["homepage"], plugin["repository"])
+        for name in ("README.md", "README.zh-CN.md"):
+            text = (ROOT / name).read_text(encoding="utf-8")
+            for command in CLAUDE_INSTALL_CONTRACT:
+                self.assertEqual(1, text.count(command), f"{name}: {command}")
+
+    def test_legacy_repository_commands_live_only_in_redirect_section(self):
+        for name in ("README.md", "README.zh-CN.md"):
+            text = (ROOT / name).read_text(encoding="utf-8")
+            section = markdown_section(text, "## Legacy repository redirect")
+            for command in LEGACY_REDIRECT_CONTRACT:
+                self.assertEqual(1, text.count(command), f"{name}: {command}")
+                self.assertIn(command, section)
 
 
 if __name__ == "__main__":

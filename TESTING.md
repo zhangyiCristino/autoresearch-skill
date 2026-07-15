@@ -353,13 +353,13 @@ On this host, direct `py <script-path>` execution intermittently exited without 
 The harness pins the third-party community installer to `skills@1.5.16`. Its project-copy command template is:
 
 ```text
-npx skills@1.5.16 add zhangyiCristino/autoresearch-skill --skill autoresearch --agent TARGET --copy -y
+npx skills@1.5.16 add zhangyiCristino/researchhelm --skill autoresearch --agent TARGET --copy -y
 ```
 
 `TARGET` is parameterized over `universal`, `cursor`, `gemini-cli`, `opencode`, `github-copilot`, `cline`, `roo`, `windsurf`, and `pi`. Linux-only branches remove `--copy` for the default symlink method and add `--global` for global-copy coverage. Use without installation is defined as:
 
 ```text
-npx skills@1.5.16 use zhangyiCristino/autoresearch-skill --skill autoresearch
+npx skills@1.5.16 use zhangyiCristino/researchhelm --skill autoresearch
 ```
 
 The harness copies only `PATH`, `CI`, and `NO_COLOR` through explicit key lookups, plus `SystemRoot` on Windows as the single required platform runtime key; `RUN_INSTALLER_TESTS` is read only for opt-in gating. Regression tests prove that `ComSpec`, `WINDIR`, `SYSTEMDRIVE`, and unknown keys are not copied. It constructs isolated `HOME`, `USERPROFILE`, `TMP`, `TEMP`, `TMPDIR`, npm cache, npm user/global config, npm prefix, and working directory paths inside a temporary sandbox. It does not enumerate the host environment or print environment values. The canonical Skill hash expected by the harness is `862008cf2e838f4d1b4ddeb09992dabb748da7fd8c6064d99bd444c3882b4932`.

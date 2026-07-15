@@ -32,7 +32,7 @@ The Gate-4-approved [one-GPU walkthrough](demo/one-gpu-public/) is now available
 For clients recognized by the [`skills` CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch
+npx skills add zhangyiCristino/researchhelm --skill autoresearch
 ```
 
 `skills` is a **third-party community installer**, not an official ResearchHelm runtime and not evidence of native client support. Its recognition of an install path establishes only the evidence label actually recorded in the compatibility registry.
@@ -42,28 +42,40 @@ npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch
 For clients supported by that same third-party community tool:
 
 ```bash
-npx skills use zhangyiCristino/autoresearch-skill@autoresearch
+npx skills use zhangyiCristino/researchhelm@autoresearch
 ```
 
 This command is also provided by the third-party community installer. It does not make the named client an officially supported or `Native-tested` ResearchHelm runtime.
 
 ## Existing Claude Code users
 
-The marketplace identity and commands remain unchanged:
+The marketplace and plugin identities remain unchanged; use the canonical repository address:
 
 ```text
-/plugin marketplace add zhangyiCristino/autoresearch-skill
+/plugin marketplace add zhangyiCristino/researchhelm
 /plugin install autoresearch@autoresearch-skill
 ```
 
-The existing manual copy path is preserved as well:
+The manual copy workflow remains available at the canonical repository path:
 
 ```bash
-git clone https://github.com/zhangyiCristino/autoresearch-skill.git
-cp -r autoresearch-skill/skills/autoresearch ~/.claude/skills/
+git clone https://github.com/zhangyiCristino/researchhelm.git
+cp -r researchhelm/skills/autoresearch ~/.claude/skills/
 ```
 
 Claude Code users can continue to invoke `/autoresearch`. Codex-oriented UI metadata lives in `skills/autoresearch/agents/openai.yaml`; that metadata is an adapter to the same canonical skill, not a separate protocol or an unsupported native-test claim.
+
+## Legacy repository redirect
+
+GitHub redirects the previous repository location to ResearchHelm for web and Git operations. Update saved URLs to `zhangyiCristino/researchhelm`; third-party installers are not guaranteed to follow GitHub redirects. Do not reuse the old repository name.
+
+```text
+/plugin marketplace add zhangyiCristino/autoresearch-skill
+git clone https://github.com/zhangyiCristino/autoresearch-skill.git
+cp -r autoresearch-skill/skills/autoresearch ~/.claude/skills/
+npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch
+npx skills use zhangyiCristino/autoresearch-skill@autoresearch
+```
 
 ## Portable bootstrap for other agents
 
