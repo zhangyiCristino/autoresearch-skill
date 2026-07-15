@@ -1,0 +1,68 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "experiment-code",
+      "frozen": true,
+      "kind": "experiment-code",
+      "path": "artifacts/public/experiment.py",
+      "producing_run": "demo-one-gpu",
+      "sha256": "6520c036e0539be651b7375157d9e2d88e56ae901b68ee179ec6d1dce1fe17be"
+    },
+    {
+      "artifact_id": "experiment-config",
+      "frozen": true,
+      "kind": "experiment-config",
+      "path": "artifacts/public/experiment-config.json",
+      "producing_run": "demo-one-gpu",
+      "sha256": "12fef056d1cd7ec770cf68fa9d5497014ef5c7783bce9e060946c489af3d7897"
+    },
+    {
+      "artifact_id": "requirements-lock",
+      "frozen": true,
+      "kind": "requirements-lock",
+      "path": "artifacts/public/requirements-lock.txt",
+      "producing_run": "demo-one-gpu",
+      "sha256": "cc72cfcd0e279156262e921705939b37e53ac39e205bdcc8cd002ff3de5f624e"
+    },
+    {
+      "artifact_id": "split-manifest",
+      "frozen": true,
+      "kind": "split-manifest",
+      "path": "artifacts/public/split-manifest.json",
+      "producing_run": "demo-one-gpu",
+      "sha256": "9155aed969f9b511620614507c3179fffa789d7ca51ee53e858ef97689a463e8"
+    },
+    {
+      "artifact_id": "metrics-summary",
+      "frozen": true,
+      "kind": "metrics-summary",
+      "path": "artifacts/public/metrics-summary.json",
+      "producing_run": "demo-one-gpu",
+      "sha256": "63504729729055851604c8f3772bc3df9c170ac52ff75282d91ff4dd06b78534"
+    },
+    {
+      "artifact_id": "attribution",
+      "frozen": true,
+      "kind": "attribution",
+      "path": "artifacts/public/ATTRIBUTION.md",
+      "producing_run": "demo-one-gpu",
+      "sha256": "52ee7534e3f59bf9af872504de86aea17fb228ceb7ee9fd6ac5d34cd974824d2"
+    }
+  ],
+  "field_sensitivity": {
+    "/artifacts/0/kind": "public",
+    "/artifacts/0/path": "public",
+    "/artifacts/1/kind": "public",
+    "/artifacts/1/path": "public",
+    "/artifacts/2/kind": "public",
+    "/artifacts/2/path": "public",
+    "/artifacts/3/kind": "public",
+    "/artifacts/3/path": "public",
+    "/artifacts/4/kind": "public",
+    "/artifacts/4/path": "public",
+    "/artifacts/5/kind": "public",
+    "/artifacts/5/path": "public"
+  },
+  "record_type": "artifact-manifest",
+  "schema_version": "1.0"
+}

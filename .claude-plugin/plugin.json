@@ -1,0 +1,24 @@
+{
+  "name": "autoresearch",
+  "version": "2.0.0",
+  "description": "Human-governed research skill for resource-to-idea scouting, supervised bounded experiments, claim auditing, and an offline Research Cockpit.",
+  "author": {
+    "name": "zhangyiCristino",
+    "url": "https://github.com/zhangyiCristino"
+  },
+  "homepage": "https://github.com/zhangyiCristino/autoresearch-skill",
+  "repository": "https://github.com/zhangyiCristino/autoresearch-skill",
+  "license": "MIT",
+  "keywords": [
+    "autoresearch",
+    "human-governed-research",
+    "resource-scouting",
+    "experiment-supervision",
+    "research-audit",
+    "offline-cockpit",
+    "optimization",
+    "claude-code",
+    "skill",
+    "reproducible-research"
+  ]
+}

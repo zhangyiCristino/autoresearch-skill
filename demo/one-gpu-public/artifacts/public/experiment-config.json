@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "record_type": "experiment-config",
+  "run_id": "demo-one-gpu",
+  "contract_hash": "d65530ee6ccdd324a8f52aab4939aa2ae599b0ec6eb9a0c531c40fe2dfe1f373",
+  "dataset": {
+    "source_url": "https://archive.ics.uci.edu/static/public/31/covertype.zip",
+    "doi": "10.24432/C50K5N",
+    "license": "CC BY 4.0",
+    "zip_sha256": "89a975c2457cd48e824238ae43c5a3cb762e42c4b4078d9b44a4514055105f6d",
+    "data_sha256": "614360d0257557dd1792834a85a1cdebfadc3c4f30b011d56afee7ffb5b15771",
+    "row_count": 581012,
+    "column_count": 55,
+    "class_counts": {"1": 211840, "2": 283301, "3": 35754, "4": 2747, "5": 9493, "6": 17367, "7": 20510}
+  },
+  "split": {
+    "pilot_area": 3,
+    "conditions": ["whole-area holdout", "class-count-matched random"],
+    "row_id_algorithm": "SHA256(data_sha256 + ':' + zero-based original row index)",
+    "random_test_seed": 20260715,
+    "random_test_algorithm": "Within each label, sort by SHA256('test|20260715|' + row_id) and take the Area 3 count.",
+    "validation_seed": 20260716,
+    "validation_fraction_per_class": 0.1,
+    "validation_algorithm": "Within each label after test removal, sort by SHA256('val|20260716|' + row_id) and take floor ten percent."
+  },
+  "features": {
+    "input_columns": 50,
+    "removed_columns": "target 54 and wilderness columns 10 through 13",
+    "unchanged_columns": "soil columns 14 through 53 stay binary",
+    "limitation": "Continuous columns 0 through 9 use statistics from that condition's training partition only."
+  },
+  "training": {
+    "model": "float32 MLP 50-128-64-7 with ReLU",
+    "loss": "unweighted cross entropy",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "betas": [0.9, 0.999],
+    "epsilon": 1e-08,
+    "batch_size": 4096,
+    "epochs": 5,
+    "scheduler": false,
+    "early_stopping": false,
+    "automatic_mixed_precision": false,
+    "checkpoint_selection": "final epoch only",
+    "determinism": "paired initialization; deterministic algorithms; fixed generator; zero workers"
+  },
+  "pilot": {
+    "model_seed": 101,
+    "runs": 2,
+    "evaluate_test": false,
+    "automatic_retries": 0,
+    "gpu_minutes_max": 15,
+    "wall_minutes_max": 30,
+    "currency_cost_max": 0,
+    "success_checks": [
+      "Stop before training on hash, shape, split, feature, or contract drift.",
+      "Stop on CUDA device mismatch, deterministic failure, OOM, NaN, Inf, privacy finding, or budget ceiling.",
+      "Do not fall back to CPU, change batch size or seed, retry, tune, or evaluate test data."
+    ]
+  },
+  "future_full": {
+    "areas": [1, 2, 3],
+    "conditions_per_area": 2,
+    "model_seeds": [17, 29, 43],
+    "epochs_per_run": 5,
+    "planned_runs": 18,
+    "cumulative_gpu_hours_max_including_pilot": 2,
+    "cumulative_wall_hours_max_including_pilot": 3,
+    "test_open_policy": "Requires Gate 3; no result-driven retry or configuration change."
+  },
+  "metrics": {},
+  "privacy": {
+    "public_artifacts": "Reviewed minimal code, config, dependency lock, aggregate split and metric summaries, attribution and hashes.",
+    "limitation": "No raw data, row lists, checkpoints, per-row outputs, machine identity, accounts, credentials, or absolute paths."
+  }
+}

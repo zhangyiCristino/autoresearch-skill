@@ -1,0 +1,82 @@
+{
+  "claims": [
+    {
+      "artifact_ids": [
+        "metrics-summary",
+        "split-manifest",
+        "experiment-code",
+        "experiment-config"
+      ],
+      "caveats": [
+        "Bounded to one dataset, one fixed MLP, three seeds, and Areas 1 through 3."
+      ],
+      "citations": [
+        "evidence-covertype-source",
+        "evidence-covertype-field-audit"
+      ],
+      "claim_id": "claim-split-sensitivity",
+      "counter_evidence": [
+        "Area holdouts have incomplete class coverage and soil indicators may remain geographic proxies."
+      ],
+      "run_ids": [
+        "demo-one-gpu"
+      ],
+      "status": "supported",
+      "text": "In the recorded Covertype experiment, matched-random macro-F1 exceeded area-holdout macro-F1 in all nine paired seed-and-area comparisons."
+    },
+    {
+      "artifact_ids": [
+        "metrics-summary"
+      ],
+      "caveats": [
+        "The evidence does not establish a universal effect size or causal mechanism."
+      ],
+      "citations": [
+        "evidence-split-search"
+      ],
+      "claim_id": "claim-bounded-implication",
+      "counter_evidence": [
+        "Only three model seeds and one architecture were evaluated."
+      ],
+      "run_ids": [
+        "demo-one-gpu"
+      ],
+      "status": "qualified",
+      "text": "For this bounded setup, random splitting materially overestimated performance relative to whole-area holdout."
+    },
+    {
+      "artifact_ids": [
+        "metrics-summary"
+      ],
+      "caveats": [
+        "No novelty review, benchmark sweep, or cross-dataset replication was performed."
+      ],
+      "citations": [],
+      "claim_id": "claim-universal-or-sota",
+      "counter_evidence": [
+        "The protocol deliberately used a small fixed demonstration model."
+      ],
+      "run_ids": [
+        "demo-one-gpu"
+      ],
+      "status": "unsupported",
+      "text": "The result proves universal spatial generalization behavior, novelty, or state-of-the-art performance."
+    }
+  ],
+  "field_sensitivity": {
+    "/claims/0/caveats/0": "public",
+    "/claims/0/citations/0": "public",
+    "/claims/0/citations/1": "public",
+    "/claims/0/counter_evidence/0": "public",
+    "/claims/0/text": "public",
+    "/claims/1/caveats/0": "public",
+    "/claims/1/citations/0": "public",
+    "/claims/1/counter_evidence/0": "public",
+    "/claims/1/text": "public",
+    "/claims/2/caveats/0": "public",
+    "/claims/2/counter_evidence/0": "public",
+    "/claims/2/text": "public"
+  },
+  "record_type": "claim-evidence",
+  "schema_version": "1.0"
+}

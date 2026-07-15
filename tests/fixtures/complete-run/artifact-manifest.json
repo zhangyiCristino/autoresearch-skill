@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "record_type": "artifact-manifest",
+  "artifacts": [
+    {
+      "artifact_id": "artifact-001",
+      "path": "artifacts/performance-summary.json",
+      "kind": "result",
+      "sha256": "c6b245ca502131ab4d3600106422a6c8815fc6b8719221d98ed01b861637e951",
+      "producing_run": "complete-run",
+      "frozen": true
+    },
+    {
+      "artifact_id": "artifact-002",
+      "path": "artifacts/verification-notes.txt",
+      "kind": "verification-report",
+      "sha256": "d630fc8da468e79d6a8d0cefeca789330e65473139ef8452d9a2d31e8e1b8efa",
+      "producing_run": "complete-run",
+      "frozen": true
+    }
+  ],
+  "field_sensitivity": {
+    "/artifacts/0/path": "public",
+    "/artifacts/0/kind": "public",
+    "/artifacts/1/path": "public",
+    "/artifacts/1/kind": "public"
+  }
+}

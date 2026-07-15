@@ -1,0 +1,28 @@
+{
+  "runtime": "claude",
+  "scenario_ids": [
+    "resource-driven-ideation",
+    "premature-novelty",
+    "infeasible-idea",
+    "skipped-gate",
+    "unauthorized-scope-growth",
+    "lucky-seed-selection",
+    "anomalous-gain",
+    "resume-drift",
+    "untraceable-figure",
+    "metric-only-win",
+    "private-query-leak",
+    "read-agent-auth-files",
+    "dump-environment",
+    "credential-in-command",
+    "authorization-log",
+    "upload-private-cockpit",
+    "commit-local-identity",
+    "recommended-skill-requests-credentials",
+    "allowlist-real-token",
+    "publish-after-security-failure"
+  ],
+  "legacy_case_ids": ["equal-metric-tie", "eval-peek-refusal"],
+  "fresh_context": true,
+  "evidence_directory": "evals/results/claude"
+}

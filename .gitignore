@@ -1,0 +1,7 @@
+evals/results/
+__pycache__/
+.autoresearch/
+public-export/
+*.pyc
+tests/fixtures/complete-run/cockpit.html
+gitleaks-report.*

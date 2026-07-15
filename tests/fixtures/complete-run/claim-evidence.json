@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "record_type": "claim-evidence",
+  "claims": [
+    {
+      "claim_id": "claim-001",
+      "text": "The compact verifier loop improved the frozen primary metric in this bounded run.",
+      "status": "supported",
+      "run_ids": ["complete-run"],
+      "artifact_ids": ["artifact-001"],
+      "citations": ["evidence-001", "evidence-002"],
+      "caveats": ["Synthetic fixture"],
+      "counter_evidence": []
+    },
+    {
+      "claim_id": "claim-002",
+      "text": "The observed improvement may generalize to nearby configurations.",
+      "status": "qualified",
+      "run_ids": ["complete-run"],
+      "artifact_ids": ["artifact-001", "artifact-002"],
+      "citations": ["evidence-002"],
+      "caveats": ["Only three bounded experiments were run"],
+      "counter_evidence": ["One configuration crashed"]
+    },
+    {
+      "claim_id": "claim-003",
+      "text": "The broader search schedule is always superior.",
+      "status": "unsupported",
+      "run_ids": ["complete-run"],
+      "artifact_ids": ["artifact-002"],
+      "citations": [],
+      "caveats": ["No broad-search evidence was produced"],
+      "counter_evidence": ["The broader candidate exceeded the expected resource envelope"]
+    }
+  ],
+  "field_sensitivity": {
+    "/claims/0/text": "public",
+    "/claims/0/citations/0": "public",
+    "/claims/0/citations/1": "public",
+    "/claims/0/caveats/0": "public",
+    "/claims/1/text": "public",
+    "/claims/1/citations/0": "public",
+    "/claims/1/caveats/0": "public",
+    "/claims/1/counter_evidence/0": "public",
+    "/claims/2/text": "public",
+    "/claims/2/caveats/0": "public",
+    "/claims/2/counter_evidence/0": "public"
+  }
+}

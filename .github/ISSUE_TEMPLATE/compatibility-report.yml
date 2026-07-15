@@ -1,0 +1,107 @@
+name: Compatibility evidence report
+description: Submit reproducible evidence for a compatibility claim
+title: "[compatibility]: "
+labels:
+  - compatibility
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Community reports remain Community-reported until independently
+        reproduced by a maintainer. Before submission, remove secrets,
+        credentials, account identifiers, private research data, personal paths,
+        and machine identifiers.
+  - type: input
+    id: client_name
+    attributes:
+      label: Client name
+    validations:
+      required: true
+  - type: input
+    id: client_version
+    attributes:
+      label: Client version
+    validations:
+      required: true
+  - type: input
+    id: operating_system
+    attributes:
+      label: Operating system and version
+    validations:
+      required: true
+  - type: input
+    id: repository_commit
+    attributes:
+      label: Tested repository commit
+      description: Provide the complete 40-character commit hash.
+    validations:
+      required: true
+  - type: input
+    id: tested_at
+    attributes:
+      label: Exact test date
+      description: Use YYYY-MM-DD so the 90-day evidence window is auditable.
+    validations:
+      required: true
+  - type: textarea
+    id: install_command
+    attributes:
+      label: Exact install command
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Installation or execution scope
+      options:
+        - Project copy
+        - Project symlink
+        - Global copy
+        - Global symlink
+        - Use without installation
+        - Portable bootstrap
+    validations:
+      required: true
+  - type: dropdown
+    id: label_requested
+    attributes:
+      label: Compatibility label requested
+      options:
+        - Standard-validated
+        - Install-path verified
+        - Native-tested
+        - Portable-tested
+        - Community-reported
+    validations:
+      required: true
+  - type: textarea
+    id: scenario_ids
+    attributes:
+      label: Scenario IDs completed
+      description: List the shared scenario IDs and outcome for each.
+    validations:
+      required: true
+  - type: textarea
+    id: raw_evidence
+    attributes:
+      label: Redacted raw evidence or immutable artifact link
+      description: >-
+        After removing the sensitive classes listed above, include exact
+        commands, modes, hashes, and exit status.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Known limitations and skips
+      description: Enter "none" only when no limitation or skip was observed.
+    validations:
+      required: true
+  - type: checkboxes
+    id: data_safety
+    attributes:
+      label: Data safety confirmation
+      options:
+        - label: I removed secrets, credentials, account identifiers, private research data, personal paths, and machine identifiers from this report.
+          required: true

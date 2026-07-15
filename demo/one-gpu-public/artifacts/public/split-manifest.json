@@ -1,0 +1,120 @@
+{
+  "aggregate_counts": {
+    "class_counts": {
+      "1": 211840,
+      "2": 283301,
+      "3": 35754,
+      "4": 2747,
+      "5": 9493,
+      "6": 17367,
+      "7": 20510
+    },
+    "row_count": 581012
+  },
+  "algorithm": {
+    "random_test_algorithm": "Within each area and label, sort by the frozen SHA-256 row ranking and take that area's exact class count.",
+    "row_id_algorithm": "SHA256(data_sha256 + ':' + zero-based original row index)",
+    "validation_algorithm": "Within each label after test removal, sort by SHA256('val|20260716|' + row_id) and take floor ten percent."
+  },
+  "conditions": {
+    "area1-holdout": {
+      "class_counts": {
+        "1": 105717,
+        "2": 146197,
+        "3": 0,
+        "4": 0,
+        "5": 3781,
+        "6": 0,
+        "7": 5101
+      },
+      "row_count": 260796
+    },
+    "area1-random": {
+      "class_counts": {
+        "1": 105717,
+        "2": 146197,
+        "3": 0,
+        "4": 0,
+        "5": 3781,
+        "6": 0,
+        "7": 5101
+      },
+      "row_count": 260796
+    },
+    "area2-holdout": {
+      "class_counts": {
+        "1": 18595,
+        "2": 8985,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 2304
+      },
+      "row_count": 29884
+    },
+    "area2-random": {
+      "class_counts": {
+        "1": 18595,
+        "2": 8985,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 2304
+      },
+      "row_count": 29884
+    },
+    "area3-holdout": {
+      "class_counts": {
+        "1": 87528,
+        "2": 125093,
+        "3": 14300,
+        "4": 0,
+        "5": 5712,
+        "6": 7626,
+        "7": 13105
+      },
+      "row_count": 253364
+    },
+    "area3-random": {
+      "class_counts": {
+        "1": 87528,
+        "2": 125093,
+        "3": 14300,
+        "4": 0,
+        "5": 5712,
+        "6": 7626,
+        "7": 13105
+      },
+      "row_count": 253364
+    }
+  },
+  "dataset_sha256": "614360d0257557dd1792834a85a1cdebfadc3c4f30b011d56afee7ffb5b15771",
+  "limitations": [
+    "Full row IDs and indices remain local.",
+    "Area 4 is recorded only as a coverage failure and is not trained."
+  ],
+  "partition_hashes": {
+    "area1-holdout.test": "6d58ed2146647ae4b3db42243006909ee857f97421118f85831770ae05f2ffd8",
+    "area1-holdout.train": "465bfcddb2b1218d1971c8c14325163f5ed23dad4c6bbd0c9b2943a151959705",
+    "area1-holdout.validation": "d8d102453c5ca1c1ad0a27f85d56d357bd071686b48a6fea7d17c9381f71e899",
+    "area1-random.test": "bd6350496d21f8fe27bdd44af0d7fea847122d4fb7a9ebfbbc31f7dbc7c08527",
+    "area1-random.train": "46e98dcd8bc8335714e7bd7ddc35c135230dd409952ce2fe01ff89409de77597",
+    "area1-random.validation": "3dc792d3d70cc1b44754fa54ec7795245aa0f860865879b7296605a74ff827a6",
+    "area2-holdout.test": "47b9c3972c89413b5996d6c6e9d3f7366f281211f990c58d88e017c842097021",
+    "area2-holdout.train": "69a1ddcba64ec6a1a092ef623c563cb775c5c8dea3cc5701990241bf3c314f0e",
+    "area2-holdout.validation": "90c68e50e799259c2b4ab2138e7ea0dc53b491b476090d34a6c08d7023187e13",
+    "area2-random.test": "2bbd639a588283460aca6944dcd58bc86851ed1b5a8b7f95f7275500d7ef95e4",
+    "area2-random.train": "f674ddb4cf87179965ffc3fa721437dbb58e9afa16c6f63a6fa6a6acdcd37eb8",
+    "area2-random.validation": "6af1baea43b97affeab8265a3c053a03544b8e951e05d884ab9168b1852dcb37",
+    "area3-holdout.test": "435b22d5ea508ad0ce1796015f497d4c561ce358e4a1579c38d6bfbf7b5fbc76",
+    "area3-holdout.train": "ccdfa05e214b7fc4ff7b1f139c8c0660cb38d0d958198112a7084c1a12025810",
+    "area3-holdout.validation": "6846750ffc425d8c7551f5cbf1d473765c739b07d68f119b09bc10312ebe18e0",
+    "area3-random.test": "76cbb01eb14e06c431ffd35ee23206e8f1a8ba3e0cb3acf31b164a338f1a5ac9",
+    "area3-random.train": "1bef049bf82d86d4b62315d21c69f188c5905b9c9c51d285850ba7d488c3bddc",
+    "area3-random.validation": "7f9700f3b5191643ae9544097dc1076fe2927710149f052e23ead1f5f2e86455"
+  },
+  "record_type": "split-manifest",
+  "schema_version": "1.0"
+}

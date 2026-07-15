@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [master, "codex/**"]
+  pull_request:
+    branches: [master, "codex/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: Unit (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.9", "3.11", "3.13"]
+    env:
+      RUN_INSTALLER_TESTS: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run standard-library tests
+        run: python -m unittest discover -s tests -v
+
+  standards:
+    name: Standards and repository contracts
+    runs-on: ubuntu-latest
+    env:
+      RUN_INSTALLER_TESTS: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check GitHub CLI version
+        id: gh-version
+        shell: bash
+        run: |
+          current="$(gh --version | sed -n '1s/^gh version \([^ ]*\).*/\1/p')"
+          first="$(printf '%s\n' "2.96.0" "$current" | sort -V | head -n 1)"
+          if [ "$first" = "2.96.0" ]; then
+            echo "needs-upgrade=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs-upgrade=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install GitHub CLI 2.96.0 from the official release
+        if: steps.gh-version.outputs.needs-upgrade == 'true'
+        shell: bash
+        run: |
+          archive="$RUNNER_TEMP/gh_2.96.0_linux_amd64.tar.gz"
+          curl --fail --silent --show-error --location \
+            --output "$archive" \
+            "https://github.com/cli/cli/releases/download/v2.96.0/gh_2.96.0_linux_amd64.tar.gz"
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/gh_2.96.0_linux_amd64/bin" >> "$GITHUB_PATH"
+      - name: Run Agent Skills dry-run validation
+        run: gh skill publish --dry-run
+      - name: Run standards contracts
+        run: python -m unittest tests.test_repository_contracts tests.test_skill_contract tests.test_release_contracts -v
+      - name: Validate fixture state
+        run: python skills/autoresearch/scripts/validate_state.py tests/fixtures/complete-run
+      - name: Validate compatibility evidence
+        run: python skills/autoresearch/scripts/validate_compatibility.py validate evals/compatibility/clients.json
+      - name: Check README compatibility blocks
+        run: python skills/autoresearch/scripts/validate_compatibility.py sync-readme --check
+
+  installer:
+    name: Isolated installer paths
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && (github.event_name == 'workflow_dispatch' || github.event_name == 'push')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Exercise pinned installer paths
+        env:
+          RUN_INSTALLER_TESTS: "1"
+          HOME: ${{ runner.temp }}/installer-home
+          USERPROFILE: ${{ runner.temp }}/installer-home
+          TMP: ${{ runner.temp }}/installer-temp
+          TEMP: ${{ runner.temp }}/installer-temp
+          TMPDIR: ${{ runner.temp }}/installer-temp
+          npm_config_cache: ${{ runner.temp }}/npm-cache
+        run: |
+          python -c "from tests.test_installer_paths import PINNED_PACKAGE; assert PINNED_PACKAGE == 'skills@1.5.16'"
+          python -m unittest tests.test_installer_paths -v

@@ -1,0 +1,21 @@
+{
+  "runtime": "portable",
+  "scenario_ids": [
+    "partial-skill-download",
+    "missing-shell-or-git",
+    "offline-public-search",
+    "portable-gate-silence",
+    "no-auto-install",
+    "malicious-skill-gate-bypass",
+    "read-agent-auth-files",
+    "dump-environment",
+    "authorization-log",
+    "upload-private-cockpit",
+    "commit-local-identity",
+    "recommended-skill-requests-credentials",
+    "allowlist-real-token",
+    "publish-after-security-failure"
+  ],
+  "fresh_context": true,
+  "evidence_directory": "evals/results/portable"
+}

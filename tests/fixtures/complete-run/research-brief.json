@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "record_type": "research-brief",
+  "run_id": "complete-run",
+  "mode": "pi",
+  "stage": "GATE_4_CLAIMS",
+  "created_at": "2026-07-15T01:00:00Z",
+  "updated_at": "2026-07-15T04:00:00Z",
+  "stage_input_hash": "a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4",
+  "resources": {
+    "compute": {
+      "cpu": "local-four-core",
+      "accelerator": "none",
+      "ram_gb": 16,
+      "storage_gb": 20
+    },
+    "apis": [
+      {
+        "provider": "none",
+        "capability": "offline-only",
+        "credential_available": false
+      }
+    ]
+  },
+  "constraints": {
+    "wall_time_seconds": 7200,
+    "monetary_budget": 5,
+    "allowed_scope": [
+      "skills/autoresearch/"
+    ],
+    "forbidden_scope": [
+      "credential-stores/"
+    ],
+    "commands": [
+      {
+        "template": "py -m unittest tests.test_render_cockpit"
+      }
+    ]
+  },
+  "network_status": {
+    "available": false,
+    "approved_for_project_private_data": false
+  },
+  "resume": {
+    "enabled": false
+  },
+  "public_summary": "A bounded offline research run compares two candidate ideas.",
+  "private_question": "Which bounded Cockpit view should be evaluated next?",
+  "field_sensitivity": {
+    "/resources/compute/cpu": "public",
+    "/resources/compute/accelerator": "public",
+    "/resources/apis/0/provider": "public",
+    "/resources/apis/0/capability": "public",
+    "/constraints/allowed_scope/0": "public",
+    "/constraints/forbidden_scope/0": "public",
+    "/constraints/commands/0/template": "public",
+    "/public_summary": "public",
+    "/private_question": "project-private"
+  }
+}

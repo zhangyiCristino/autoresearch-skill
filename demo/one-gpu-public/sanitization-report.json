@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "sanitized-public-export",
+  "files_exported": 14,
+  "records_exported": 14,
+  "public_fields_retained": 210,
+  "project_private_fields_removed": 0,
+  "artifacts_exported": 6,
+  "finding_count": 0,
+  "findings": []
+}

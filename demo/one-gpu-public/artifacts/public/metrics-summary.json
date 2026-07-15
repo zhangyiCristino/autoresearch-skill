@@ -1,0 +1,56 @@
+{
+  "aggregate_metrics": {
+    "area1": {
+      "delta_macro_f1": 0.20353988545341842,
+      "primary": 0.3589458515553357,
+      "runs": 3,
+      "secondary": 0.5624857370087541
+    },
+    "area2": {
+      "delta_macro_f1": 0.26097974473691904,
+      "primary": 0.4828000275663309,
+      "runs": 3,
+      "secondary": 0.7437797723032499
+    },
+    "area3": {
+      "delta_macro_f1": 0.16880097926996876,
+      "primary": 0.34046267570423216,
+      "runs": 3,
+      "secondary": 0.509263654974201
+    },
+    "mean": 0.21110686982010207,
+    "runs": 18,
+    "standard_deviation": 0.04327989136576011
+  },
+  "artifact_hashes": {
+    "code": "6520c036e0539be651b7375157d9e2d88e56ae901b68ee179ec6d1dce1fe17be",
+    "config": "12fef056d1cd7ec770cf68fa9d5497014ef5c7783bce9e060946c489af3d7897",
+    "executedfullsplit": "28c5ae0080dd90ff0e93aae2b19e3d6d34cf278423ad3b23836e562d5fdb84ce",
+    "fullresult": "b6c9aed27edefcaae08e1696a01753f037c8874d3a541ea98b80b7dbdcdfd0b7",
+    "publicsplit": "9155aed969f9b511620614507c3179fffa789d7ca51ee53e858ef97689a463e8"
+  },
+  "guardrails": {
+    "failures": 0,
+    "nan_count": 0,
+    "runs": 18
+  },
+  "limitations": [
+    "Primary is area-holdout mean macro-F1; secondary is matched-random mean macro-F1.",
+    "The result is limited to Covertype, this fixed MLP, three seeds, and the recorded split protocol.",
+    "Class coverage is 4/7 for Area 1, 3/7 for Area 2, and 6/7 for Area 3.",
+    "This is not a novelty, SOTA, universal-generalization, or GPU-performance claim."
+  ],
+  "record_type": "metrics-summary",
+  "run_id": "demo-one-gpu",
+  "runtime": {
+    "gpu_seconds": 646.443375,
+    "peak_vram_gib": 0.12563133239746094,
+    "wall_seconds": 646.4839999999967
+  },
+  "schema_version": "1.0",
+  "status": "gate4-approved-qualified",
+  "uncertainty": {
+    "mean": 0.21110686982010207,
+    "standard_deviation": 0.04327989136576011
+  }
+}

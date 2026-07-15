@@ -1,0 +1,293 @@
+{
+  "constraints": {
+    "allowed_scope": [
+      ".autoresearch/demo-one-gpu/"
+    ],
+    "commands": [
+      {
+        "description": "Build and freeze deterministic split manifests without training.",
+        "template": "py .autoresearch/demo-one-gpu/artifacts/public/experiment.py prepare --config .autoresearch/demo-one-gpu/artifacts/public/experiment-config.json"
+      },
+      {
+        "description": "Run only the Gate 2-approved two-condition pilot.",
+        "template": "py .autoresearch/demo-one-gpu/artifacts/public/experiment.py pilot --config .autoresearch/demo-one-gpu/artifacts/public/experiment-config.json"
+      },
+      {
+        "description": "Independently verify the frozen pilot evidence before Gate 3.",
+        "template": "py .autoresearch/demo-one-gpu/artifacts/public/experiment.py verify-pilot --config .autoresearch/demo-one-gpu/artifacts/public/experiment-config.json"
+      }
+    ],
+    "forbidden_scope": [
+      "account or credential stores",
+      "environment dumps",
+      "host or device identifiers",
+      "project-private data",
+      "raw data or checkpoints in public export"
+    ],
+    "monetary_budget": 0,
+    "wall_time_seconds": 1800
+  },
+  "created_at": "2026-07-15T09:06:24Z",
+  "experiment_contract": {
+    "authorization_scope": "pilot only; no full run and no public claim",
+    "builder_verifier": {
+      "builder": "Implements only the approved split, model, configuration, and pilot; freezes code, data, schema, split, configuration, environment, and model-state hashes; does not open test metrics.",
+      "verifier": "Independently checks hashes, row counts, class coverage, partition equality and disjointness, train-only normalization, feature removal, deterministic replay, metrics, runtime, VRAM, artifact hashes, and privacy boundaries without editing Builder outputs."
+    },
+    "claim_limits": [
+      "The pilot can establish execution integrity only; it cannot support a scientific conclusion.",
+      "The final walkthrough is one bounded audit, not a benchmark, novelty claim, SOTA claim, universal scientific conclusion, GPU performance claim, or proof of native compatibility across agents.",
+      "Re-execution is scoped to the recorded environment and does not promise bitwise equality across PyTorch releases, platforms, or hardware."
+    ],
+    "dataset": {
+      "area3_test_label_counts": {
+        "1": 87528,
+        "2": 125093,
+        "3": 14300,
+        "4": 0,
+        "5": 5712,
+        "6": 7626,
+        "7": 13105
+      },
+      "area4_policy": "coverage failure only; class 4 has zero complementary training support, so no Area 4 model or macro-F1 comparison is allowed",
+      "columns_including_target": 55,
+      "data_sha256": "614360d0257557dd1792834a85a1cdebfadc3c4f30b011d56afee7ffb5b15771",
+      "doi": "10.24432/C50K5N",
+      "global_label_counts": {
+        "1": 211840,
+        "2": 283301,
+        "3": 35754,
+        "4": 2747,
+        "5": 9493,
+        "6": 17367,
+        "7": 20510
+      },
+      "license": "CC BY 4.0",
+      "rows": 581012,
+      "source_url": "https://archive.ics.uci.edu/static/public/31/covertype.zip",
+      "zip_sha256": "89a975c2457cd48e824238ae43c5a3cb762e42c4b4078d9b44a4514055105f6d"
+    },
+    "environment": {
+      "cuda_build": "12.4",
+      "driver": "546.28",
+      "hardware_class": "NVIDIA GeForce RTX 4060 Laptop GPU with 8188 MiB VRAM",
+      "numpy": "1.26.4",
+      "python": "3.11.3",
+      "supply_chain_limit": "Existing local environment; package installation provenance was not independently verified. No new package installation is authorized.",
+      "torch": "2.6.0+cu124"
+    },
+    "features": {
+      "continuous_columns": "columns 0 through 9; standardized with that condition's training partition only",
+      "input_columns": 50,
+      "limitation": "Soil_Type features may remain geographic proxies, so this is not proof of complete spatial generalization.",
+      "removed_columns": "target column 54 and Wilderness_Area columns 10 through 13",
+      "unchanged_columns": "Soil_Type columns 14 through 53 remain binary"
+    },
+    "future_full_requires_gate3": {
+      "areas": [
+        1,
+        2,
+        3
+      ],
+      "conditions_per_area": 2,
+      "cumulative_gpu_hours_max_including_pilot": 2,
+      "cumulative_wall_hours_max_including_pilot": 3,
+      "epochs_per_run": 5,
+      "model_seeds": [
+        17,
+        29,
+        43
+      ],
+      "planned_runs": 18,
+      "test_open_policy": "Open each frozen test evaluator only after all approved full training runs finish; no result-driven retries or configuration changes."
+    },
+    "metrics_and_claim_rules": {
+      "anomaly_pause": "absolute mean delta at least 0.20 or any seed absolute delta at least 0.30 pauses Gate 4 for leakage and evaluator audit",
+      "area_present_labels": {
+        "1": "1,2,5,7",
+        "2": "1,2,7",
+        "3": "1,2,3,5,6,7"
+      },
+      "guardrails": "accuracy, per-class precision recall and F1, confusion matrix, prediction distribution, class coverage, validation metrics, runtime, peak VRAM, failures, and NaN counts",
+      "primary_effect": "For each area, delta equals macro-F1 on that area's present labels under matched random minus whole-area holdout.",
+      "qualified_per_area": "a finite audited effect that does not meet every supported threshold",
+      "supported_per_area": "mean delta at least 0.05, all three seed deltas positive, bootstrap lower bound above 0.02, and no Critical verifier finding",
+      "uncertainty": "mean and standard deviation across three seeds plus a fixed-seed stratified confusion-matrix bootstrap interval; this interval is descriptive and not a population-generalization guarantee",
+      "unsupported_or_reversed": "bootstrap upper bound below 0.05 refutes the preregistered five-point effect for that area; an upper bound below zero records reversal"
+    },
+    "pilot": {
+      "automatic_retries": 0,
+      "currency_cost_max": 0,
+      "evaluate_test": false,
+      "gpu_minutes_max": 15,
+      "model_seed": 101,
+      "runs": 2,
+      "success_checks": [
+        "Dataset, schema, counts, hashes, split equality, disjointness, and feature removal all match the frozen contract.",
+        "Training and validation losses are finite, and at least one later training epoch is lower than epoch one.",
+        "The Verifier independently replays the first 20 optimizer steps for both conditions with loss tolerance 1e-7 and matching canonical model-state tensor hashes.",
+        "CUDA is available on the approved GPU class, peak allocated VRAM is at most 7.2 GiB, and the projected full block fits its separate ceiling.",
+        "No integrity, privacy, security, budget, or deterministic-algorithm finding remains open."
+      ],
+      "wall_minutes_max": 30
+    },
+    "privacy": {
+      "never_record_or_export": "raw data, full row indices, checkpoints, per-row predictions or logits, raw stdout or stderr, tracebacks, caches, package-manager logs, environment variables, usernames, hostnames, GPU UUIDs or serials, process lists, absolute paths, account data, credentials, tokens, or API information",
+      "public_artifacts": "reviewed minimal experiment code, frozen config, dependency lock, split rules and aggregate counts, aggregate metric summary, attribution, and SHA-256 hashes"
+    },
+    "research_question": "For UCI Covertype, how much does measured multiclass performance change when a whole wilderness area is held out instead of using a random test split with exactly matched per-class counts?",
+    "split": {
+      "conditions": [
+        "whole-area holdout",
+        "class-count-matched random"
+      ],
+      "invariants": [
+        "Each condition has disjoint train, validation, and test partitions whose union is all rows.",
+        "The two conditions have exactly equal train, validation, and test counts for every label.",
+        "Split manifests and aggregate counts are frozen and hashed before any CUDA training call.",
+        "Full row ID or index lists remain local and are never included in public export."
+      ],
+      "pilot_area": 3,
+      "random_test_algorithm": "Within each label, sort all rows by SHA256('test|20260715|' + row_id) and take exactly the Area 3 test count without replacement.",
+      "random_test_seed": 20260715,
+      "row_id_algorithm": "SHA256(data_sha256 + ':' + zero_based_original_row_index)",
+      "validation_algorithm": "Within each condition and label, sort the post-test pool by SHA256('val|20260716|' + row_id) and take floor(0.10 * class_count).",
+      "validation_fraction_per_class": 0.1,
+      "validation_seed": 20260716
+    },
+    "stop_rules": [
+      "Stop on any dataset, schema, count, hash, split, code, config, evaluator, or environment drift.",
+      "Stop on target or area leakage, partition overlap or omission, unequal paired counts, test access before Gate 3, NaN or Inf, OOM, deterministic-algorithm failure, privacy or security finding, or budget ceiling.",
+      "Do not fall back to CPU, reduce batch size, retry automatically, change seeds, tune on test, or expand network and storage scope.",
+      "Any semantic contract change invalidates Gate 2 approval and requires a new human decision."
+    ],
+    "training": {
+      "automatic_mixed_precision": false,
+      "batch_size": 4096,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "checkpoint_selection": "final epoch only",
+      "determinism": "same initialization per paired condition; torch deterministic algorithms enabled; cuDNN benchmark disabled; fixed generator; num_workers zero",
+      "early_stopping": false,
+      "epochs": 5,
+      "epsilon": 1e-08,
+      "learning_rate": 0.001,
+      "loss": "unweighted cross entropy",
+      "model": "float32 MLP 50-128-64-7 with ReLU after each hidden layer",
+      "optimizer": "AdamW",
+      "scheduler": false,
+      "weight_decay": 0.0001
+    }
+  },
+  "field_sensitivity": {
+    "/constraints/allowed_scope/0": "public",
+    "/constraints/commands/0/description": "public",
+    "/constraints/commands/0/template": "public",
+    "/constraints/commands/1/description": "public",
+    "/constraints/commands/1/template": "public",
+    "/constraints/commands/2/description": "public",
+    "/constraints/commands/2/template": "public",
+    "/constraints/forbidden_scope/0": "public",
+    "/constraints/forbidden_scope/1": "public",
+    "/constraints/forbidden_scope/2": "public",
+    "/constraints/forbidden_scope/3": "public",
+    "/constraints/forbidden_scope/4": "public",
+    "/experiment_contract/authorization_scope": "public",
+    "/experiment_contract/builder_verifier/builder": "public",
+    "/experiment_contract/builder_verifier/verifier": "public",
+    "/experiment_contract/claim_limits/0": "public",
+    "/experiment_contract/claim_limits/1": "public",
+    "/experiment_contract/claim_limits/2": "public",
+    "/experiment_contract/dataset/area4_policy": "public",
+    "/experiment_contract/dataset/data_sha256": "public",
+    "/experiment_contract/dataset/doi": "public",
+    "/experiment_contract/dataset/license": "public",
+    "/experiment_contract/dataset/source_url": "public",
+    "/experiment_contract/dataset/zip_sha256": "public",
+    "/experiment_contract/environment/cuda_build": "public",
+    "/experiment_contract/environment/driver": "public",
+    "/experiment_contract/environment/hardware_class": "public",
+    "/experiment_contract/environment/numpy": "public",
+    "/experiment_contract/environment/python": "public",
+    "/experiment_contract/environment/supply_chain_limit": "public",
+    "/experiment_contract/environment/torch": "public",
+    "/experiment_contract/features/continuous_columns": "public",
+    "/experiment_contract/features/limitation": "public",
+    "/experiment_contract/features/removed_columns": "public",
+    "/experiment_contract/features/unchanged_columns": "public",
+    "/experiment_contract/future_full_requires_gate3/test_open_policy": "public",
+    "/experiment_contract/metrics_and_claim_rules/anomaly_pause": "public",
+    "/experiment_contract/metrics_and_claim_rules/area_present_labels/1": "public",
+    "/experiment_contract/metrics_and_claim_rules/area_present_labels/2": "public",
+    "/experiment_contract/metrics_and_claim_rules/area_present_labels/3": "public",
+    "/experiment_contract/metrics_and_claim_rules/guardrails": "public",
+    "/experiment_contract/metrics_and_claim_rules/primary_effect": "public",
+    "/experiment_contract/metrics_and_claim_rules/qualified_per_area": "public",
+    "/experiment_contract/metrics_and_claim_rules/supported_per_area": "public",
+    "/experiment_contract/metrics_and_claim_rules/uncertainty": "public",
+    "/experiment_contract/metrics_and_claim_rules/unsupported_or_reversed": "public",
+    "/experiment_contract/pilot/success_checks/0": "public",
+    "/experiment_contract/pilot/success_checks/1": "public",
+    "/experiment_contract/pilot/success_checks/2": "public",
+    "/experiment_contract/pilot/success_checks/3": "public",
+    "/experiment_contract/pilot/success_checks/4": "public",
+    "/experiment_contract/privacy/never_record_or_export": "public",
+    "/experiment_contract/privacy/public_artifacts": "public",
+    "/experiment_contract/research_question": "public",
+    "/experiment_contract/split/conditions/0": "public",
+    "/experiment_contract/split/conditions/1": "public",
+    "/experiment_contract/split/invariants/0": "public",
+    "/experiment_contract/split/invariants/1": "public",
+    "/experiment_contract/split/invariants/2": "public",
+    "/experiment_contract/split/invariants/3": "public",
+    "/experiment_contract/split/random_test_algorithm": "public",
+    "/experiment_contract/split/row_id_algorithm": "public",
+    "/experiment_contract/split/validation_algorithm": "public",
+    "/experiment_contract/stop_rules/0": "public",
+    "/experiment_contract/stop_rules/1": "public",
+    "/experiment_contract/stop_rules/2": "public",
+    "/experiment_contract/stop_rules/3": "public",
+    "/experiment_contract/training/checkpoint_selection": "public",
+    "/experiment_contract/training/determinism": "public",
+    "/experiment_contract/training/loss": "public",
+    "/experiment_contract/training/model": "public",
+    "/experiment_contract/training/optimizer": "public",
+    "/public_summary": "public",
+    "/resources/apis/0/capability": "public",
+    "/resources/apis/0/provider": "public",
+    "/resources/compute/accelerator": "public",
+    "/resources/compute/cpu": "public"
+  },
+  "mode": "pi",
+  "network_status": {
+    "approved_for_project_private_data": false,
+    "available": false
+  },
+  "public_summary": "A bounded Covertype demonstration found higher matched-random than area-holdout macro-F1 in all nine paired comparisons; the claim remains limited to the recorded dataset, model, seeds, and split protocol.",
+  "record_type": "research-brief",
+  "resources": {
+    "apis": [
+      {
+        "capability": "none during pilot",
+        "credential_available": false,
+        "provider": "none during pilot"
+      }
+    ],
+    "compute": {
+      "accelerator": "one NVIDIA GeForce RTX 4060 Laptop GPU",
+      "cpu": "local CPU, not identified or published",
+      "gpu_vram_gb": 8,
+      "storage_gb": 2
+    }
+  },
+  "resume": {
+    "enabled": false
+  },
+  "run_id": "demo-one-gpu",
+  "schema_version": "1.0",
+  "stage": "GATE_4_CLAIMS",
+  "stage_input_hash": "b53b7dea0876df15edd403374f88c747fca3a3e606513345464bf21ea738776d",
+  "updated_at": "2026-07-15T12:27:56Z"
+}

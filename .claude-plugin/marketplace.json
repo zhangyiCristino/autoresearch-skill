@@ -1,0 +1,17 @@
+{
+  "name": "autoresearch-skill",
+  "owner": {
+    "name": "zhangyiCristino",
+    "url": "https://github.com/zhangyiCristino"
+  },
+  "description": "Human-governed research from resource scouting to audited claims, with bounded experiments and an offline Research Cockpit.",
+  "plugins": [
+    {
+      "name": "autoresearch",
+      "source": "./",
+      "description": "Scout resource-feasible ideas, supervise Builder-Verifier experiments, and audit claims while preserving the legacy optimize loop.",
+      "version": "2.0.0",
+      "license": "MIT"
+    }
+  ]
+}

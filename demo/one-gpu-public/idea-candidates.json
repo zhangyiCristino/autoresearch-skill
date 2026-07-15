@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0",
+  "record_type": "idea-candidates",
+  "candidates": [
+    {
+      "candidate_id": "covertype-split-sensitivity",
+      "hypothesis": "A random stratified split reports materially higher macro-F1 than a whole-wilderness-area holdout under the same small MLP and budget after the four area-indicator columns are removed from model inputs.",
+      "mechanism": "Random splitting mixes records from the same ecogeographic areas across train and test, while an area holdout creates a stronger distribution shift; UCI documents meaningful elevation and species differences among the four areas.",
+      "nearest_work": [
+        {
+          "evidence_id": "evidence-covertype-source"
+        },
+        {
+          "evidence_id": "evidence-split-search"
+        }
+      ],
+      "overlap": {
+        "question": "partial",
+        "method": "partial",
+        "data": "high",
+        "evaluation": "partial",
+        "claimed_contribution": "none"
+      },
+      "differentiating_claim": "No method novelty is claimed; the useful output is a preregistered estimate of how strongly this evaluation choice changes the decision under one fixed protocol.",
+      "minimum_falsification_experiment": "Freeze one random stratified split and one preselected area holdout, remove area indicators, run one seed for at most five epochs, and report macro-F1, per-class recall, class coverage, uncertainty, and measured GPU time without selecting the better-looking split after testing.",
+      "resource_estimate": {
+        "low": {
+          "wall_time_seconds": 900,
+          "gpu_time_seconds": 300,
+          "runs": 2
+        },
+        "expected": {
+          "wall_time_seconds": 7200,
+          "gpu_time_seconds": 3600,
+          "runs": 6
+        },
+        "high": {
+          "wall_time_seconds": 10800,
+          "gpu_time_seconds": 7200,
+          "runs": 15
+        }
+      },
+      "scores": {
+        "information_gain": 5,
+        "feasibility": 4,
+        "impact": 4,
+        "evidence_quality": 4,
+        "compute_fit": 5,
+        "risk": 3
+      },
+      "risks": [
+        "Some held-out areas may omit target classes, so class coverage must be reported and unsupported comparisons must remain unsupported.",
+        "The dataset has no coordinates, so area holdout is not a complete spatial-generalization test.",
+        "Keeping the four area-indicator columns would leak the holdout identity into model inputs."
+      ],
+      "pivots": [
+        "If preregistered area holdouts lack adequate class coverage, stop and request a new Gate 1 decision instead of choosing a favorable area.",
+        "If the pilot forecasts a budget overrun, keep only the pilot as an unsupported or qualified result."
+      ],
+      "status": "incremental"
+    },
+    {
+      "candidate_id": "covertype-feature-group-ablation",
+      "hypothesis": "The ten continuous cartographic features retain most of the all-feature macro-F1 while reducing reliance on wilderness-area and soil-type proxy variables.",
+      "mechanism": "Elevation, slope, hydrology, road, fire-point, and hillshade features may contain much of the predictive structure, while the 44 binary group indicators encode location and soil categories.",
+      "nearest_work": [
+        {
+          "evidence_id": "evidence-covertype-source"
+        },
+        {
+          "evidence_id": "evidence-split-search"
+        }
+      ],
+      "overlap": {
+        "question": "unknown",
+        "method": "high",
+        "data": "high",
+        "evaluation": "partial",
+        "claimed_contribution": "none"
+      },
+      "differentiating_claim": "No feature-selection novelty is claimed; the experiment would expose a decision-relevant performance-versus-proxy-use trade-off for this exact dataset and model.",
+      "minimum_falsification_experiment": "Freeze one stratified split and one model configuration, then compare all 54 features against the ten continuous features for one seed with identical epochs and report macro-F1, worst-class recall, parameter count, and GPU time.",
+      "resource_estimate": {
+        "low": {
+          "wall_time_seconds": 600,
+          "gpu_time_seconds": 240,
+          "runs": 2
+        },
+        "expected": {
+          "wall_time_seconds": 3600,
+          "gpu_time_seconds": 1800,
+          "runs": 6
+        },
+        "high": {
+          "wall_time_seconds": 7200,
+          "gpu_time_seconds": 3600,
+          "runs": 10
+        }
+      },
+      "scores": {
+        "information_gain": 4,
+        "feasibility": 5,
+        "impact": 3,
+        "evidence_quality": 3,
+        "compute_fit": 5,
+        "risk": 2
+      },
+      "risks": [
+        "The proxy interpretation is descriptive and cannot establish causal ecological relationships.",
+        "A random split can still overstate generalization beyond the four documented areas."
+      ],
+      "pivots": [
+        "If all-feature performance dominates, report the trade-off rather than searching for a favorable subset.",
+        "If feature meanings differ from the UCI metadata after inspection, stop before training."
+      ],
+      "status": "unknown"
+    },
+    {
+      "candidate_id": "covertype-class-weighting",
+      "hypothesis": "Training-set-derived inverse-frequency class weights improve worst-class recall without an unacceptable macro-F1 loss under a frozen stratified split.",
+      "mechanism": "A weighted loss increases the contribution of less frequent classes during optimization.",
+      "nearest_work": [
+        {
+          "evidence_id": "evidence-covertype-source"
+        },
+        {
+          "evidence_id": "evidence-imbalance-search"
+        }
+      ],
+      "overlap": {
+        "question": "high",
+        "method": "high",
+        "data": "high",
+        "evaluation": "high",
+        "claimed_contribution": "none"
+      },
+      "differentiating_claim": "This would be a transparent replication for workflow demonstration only; prior work already evaluates class-weighted and worst-class risks on Covertype.",
+      "minimum_falsification_experiment": "After verifying class counts from the training split only, compare unweighted and inverse-frequency cross-entropy for one seed and reject the hypothesis if worst-class recall does not improve or macro-F1 crosses the preregistered harm threshold.",
+      "resource_estimate": {
+        "low": {
+          "wall_time_seconds": 600,
+          "gpu_time_seconds": 240,
+          "runs": 2
+        },
+        "expected": {
+          "wall_time_seconds": 3600,
+          "gpu_time_seconds": 1800,
+          "runs": 6
+        },
+        "high": {
+          "wall_time_seconds": 7200,
+          "gpu_time_seconds": 3600,
+          "runs": 10
+        }
+      },
+      "scores": {
+        "information_gain": 2,
+        "feasibility": 5,
+        "impact": 2,
+        "evidence_quality": 4,
+        "compute_fit": 5,
+        "risk": 2
+      },
+      "risks": [
+        "Class weighting is established and cannot support a novelty claim.",
+        "Rare-class gains can trade off sharply against common-class performance."
+      ],
+      "pivots": [
+        "If the inspected training split is not materially imbalanced, reject the candidate before training.",
+        "If weighted loss destabilizes training, retain the failure artifact and stop rather than tuning after test inspection."
+      ],
+      "status": "overlapping"
+    }
+  ],
+  "field_sensitivity": {
+    "/candidates/0/hypothesis": "public",
+    "/candidates/0/mechanism": "public",
+    "/candidates/0/overlap/question": "public",
+    "/candidates/0/overlap/method": "public",
+    "/candidates/0/overlap/data": "public",
+    "/candidates/0/overlap/evaluation": "public",
+    "/candidates/0/overlap/claimed_contribution": "public",
+    "/candidates/0/differentiating_claim": "public",
+    "/candidates/0/minimum_falsification_experiment": "public",
+    "/candidates/0/risks/0": "public",
+    "/candidates/0/risks/1": "public",
+    "/candidates/0/risks/2": "public",
+    "/candidates/0/pivots/0": "public",
+    "/candidates/0/pivots/1": "public",
+    "/candidates/1/hypothesis": "public",
+    "/candidates/1/mechanism": "public",
+    "/candidates/1/overlap/question": "public",
+    "/candidates/1/overlap/method": "public",
+    "/candidates/1/overlap/data": "public",
+    "/candidates/1/overlap/evaluation": "public",
+    "/candidates/1/overlap/claimed_contribution": "public",
+    "/candidates/1/differentiating_claim": "public",
+    "/candidates/1/minimum_falsification_experiment": "public",
+    "/candidates/1/risks/0": "public",
+    "/candidates/1/risks/1": "public",
+    "/candidates/1/pivots/0": "public",
+    "/candidates/1/pivots/1": "public",
+    "/candidates/2/hypothesis": "public",
+    "/candidates/2/mechanism": "public",
+    "/candidates/2/overlap/question": "public",
+    "/candidates/2/overlap/method": "public",
+    "/candidates/2/overlap/data": "public",
+    "/candidates/2/overlap/evaluation": "public",
+    "/candidates/2/overlap/claimed_contribution": "public",
+    "/candidates/2/differentiating_claim": "public",
+    "/candidates/2/minimum_falsification_experiment": "public",
+    "/candidates/2/risks/0": "public",
+    "/candidates/2/risks/1": "public",
+    "/candidates/2/pivots/0": "public",
+    "/candidates/2/pivots/1": "public"
+  }
+}

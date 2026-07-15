@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0",
+  "record_type": "idea-candidates",
+  "candidates": [
+    {
+      "candidate_id": "idea-001",
+      "hypothesis": "A compact verifier loop improves the primary metric within the frozen budget.",
+      "mechanism": "Independent checks reject regressions before the next bounded experiment.",
+      "nearest_work": [
+        {
+          "evidence_id": "evidence-001"
+        }
+      ],
+      "overlap": {
+        "question": "partial",
+        "method": "partial",
+        "data": "none",
+        "evaluation": "partial",
+        "claimed_contribution": "none"
+      },
+      "differentiating_claim": "The run binds each claim to frozen local artifacts.",
+      "minimum_falsification_experiment": "Run three bounded trials with one deliberate failure path.",
+      "resource_estimate": {
+        "low": {"wall_time_seconds": 300},
+        "expected": {"wall_time_seconds": 900},
+        "high": {"wall_time_seconds": 1800}
+      },
+      "scores": {
+        "information_gain": 5,
+        "feasibility": 4,
+        "impact": 4,
+        "evidence_quality": 4,
+        "compute_fit": 5,
+        "risk": 2
+      },
+      "risks": ["Verifier overfitting"],
+      "pivots": ["Freeze a second evaluator"],
+      "status": "differentiated"
+    },
+    {
+      "candidate_id": "idea-002",
+      "hypothesis": "A broader search schedule finds a stronger candidate under the same budget.",
+      "mechanism": "Additional branches explore more configurations before verification.",
+      "nearest_work": [
+        {
+          "evidence_id": "evidence-001"
+        }
+      ],
+      "overlap": {
+        "question": "high",
+        "method": "high",
+        "data": "partial",
+        "evaluation": "high",
+        "claimed_contribution": "partial"
+      },
+      "differentiating_claim": "The broader schedule may improve discovery at higher cost.",
+      "minimum_falsification_experiment": "Compare one broad-search trial with the frozen baseline.",
+      "resource_estimate": {
+        "low": {"wall_time_seconds": 900},
+        "expected": {"wall_time_seconds": 2400},
+        "high": {"wall_time_seconds": 4800}
+      },
+      "scores": {
+        "information_gain": 3,
+        "feasibility": 3,
+        "impact": 4,
+        "evidence_quality": 3,
+        "compute_fit": 2,
+        "risk": 4
+      },
+      "risks": ["Budget exhaustion"],
+      "pivots": ["Return to the compact verifier loop"],
+      "status": "overlapping"
+    }
+  ],
+  "field_sensitivity": {
+    "/candidates/0/hypothesis": "public",
+    "/candidates/0/mechanism": "public",
+    "/candidates/0/overlap/question": "public",
+    "/candidates/0/overlap/method": "public",
+    "/candidates/0/overlap/data": "public",
+    "/candidates/0/overlap/evaluation": "public",
+    "/candidates/0/overlap/claimed_contribution": "public",
+    "/candidates/0/differentiating_claim": "public",
+    "/candidates/0/minimum_falsification_experiment": "public",
+    "/candidates/0/risks/0": "public",
+    "/candidates/0/pivots/0": "public",
+    "/candidates/1/hypothesis": "public",
+    "/candidates/1/mechanism": "public",
+    "/candidates/1/overlap/question": "public",
+    "/candidates/1/overlap/method": "public",
+    "/candidates/1/overlap/data": "public",
+    "/candidates/1/overlap/evaluation": "public",
+    "/candidates/1/overlap/claimed_contribution": "public",
+    "/candidates/1/differentiating_claim": "public",
+    "/candidates/1/minimum_falsification_experiment": "public",
+    "/candidates/1/risks/0": "public",
+    "/candidates/1/pivots/0": "public"
+  }
+}
