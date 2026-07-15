@@ -1,7 +1,7 @@
 {
   "name": "autoresearch",
   "version": "2.0.0",
-  "description": "Human-governed research skill for resource-to-idea scouting, supervised bounded experiments, claim auditing, and an offline Research Cockpit.",
+  "description": "ResearchHelm is a human-governed research skill for resource-to-idea scouting, supervised bounded experiments, claim auditing, and an offline Research Cockpit.",
   "author": {
     "name": "zhangyiCristino",
     "url": "https://github.com/zhangyiCristino"

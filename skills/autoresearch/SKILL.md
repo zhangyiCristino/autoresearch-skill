@@ -3,9 +3,9 @@ name: autoresearch
 description: Use when a user wants research ideas grounded in available resources, public-work overlap diligence, preregistered human-governed experiments, bounded metric optimization, reproducibility audits, claim-to-artifact evidence control, or approved recommendations for complementary research skills.
 ---
 
-# Human-Governed Autoresearch
+# ResearchHelm
 
-Turn resources into defensible ideas, human decisions, bounded execution, and audited claims. The human owns scientific decisions.
+ResearchHelm turns resources into defensible ideas, human decisions, bounded execution, and audited claims. The human owns scientific decisions.
 
 ## Security Preflight
 

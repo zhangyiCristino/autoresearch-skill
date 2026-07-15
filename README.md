@@ -1,8 +1,8 @@
-# Human-Governed Autoresearch
+# ResearchHelm
 
-**Turn the resources you actually have into defensible research options, human decisions, bounded experiments, and audited claims.**
+**Human-governed research, from resources to audited claims.**
 
-Autoresearch is **not an autonomous AI scientist**. It does not promise to turn a topic into a paper or replace scientific judgment. You remain the principal investigator: the agent gathers evidence, builds and verifies within approved limits, and ties every retained claim back to artifacts.
+ResearchHelm is **not an autonomous AI scientist**. It does not promise to turn a topic into a paper or replace scientific judgment. You remain the principal investigator: the agent gathers evidence, builds and verifies within approved limits, and ties every retained claim back to artifacts.
 
 `resources -> defensible ideas -> human decisions -> bounded execution -> audited claims`
 
@@ -35,7 +35,7 @@ For clients recognized by the [`skills` CLI](https://github.com/vercel-labs/skil
 npx skills add zhangyiCristino/autoresearch-skill --skill autoresearch
 ```
 
-`skills` is a **third-party community installer**, not an official Autoresearch runtime and not evidence of native client support. Its recognition of an install path establishes only the evidence label actually recorded in the compatibility registry.
+`skills` is a **third-party community installer**, not an official ResearchHelm runtime and not evidence of native client support. Its recognition of an install path establishes only the evidence label actually recorded in the compatibility registry.
 
 ## Try without installing
 
@@ -45,7 +45,7 @@ For clients supported by that same third-party community tool:
 npx skills use zhangyiCristino/autoresearch-skill@autoresearch
 ```
 
-This command is also provided by the third-party community installer. It does not make the named client an officially supported or `Native-tested` Autoresearch runtime.
+This command is also provided by the third-party community installer. It does not make the named client an officially supported or `Native-tested` ResearchHelm runtime.
 
 ## Existing Claude Code users
 
@@ -114,11 +114,11 @@ Label meanings:
 - **Portable-tested:** a client without native installation followed the portable bootstrap and passed the shared behavior scenario.
 - **Community-reported:** the report includes required reproducibility evidence but has not been independently reproduced by the maintainer.
 
-Installer support counts never become Autoresearch support counts. A portable fallback is available for capable coding agents, but no claim here says that every agent works.
+Installer support counts never become ResearchHelm support counts. A portable fallback is available for capable coding agents, but no claim here says that every agent works.
 
 ## Credential, privacy, and publication boundary
 
-Autoresearch is scoped to the project workspace and user-approved paths. It must not inspect Claude Code or Codex account/configuration directories, browser profiles, Git credential helpers, SSH/GPG keys, cloud credential files, operating-system credential stores, session databases, or a complete environment-variable dump. API authentication remains opaque and host-managed; records may state only the provider and whether authentication was available, never a credential value or credential-derived hash.
+ResearchHelm is scoped to the project workspace and user-approved paths. It must not inspect Claude Code or Codex account/configuration directories, browser profiles, Git credential helpers, SSH/GPG keys, cloud credential files, operating-system credential stores, session databases, or a complete environment-variable dump. API authentication remains opaque and host-managed; records may state only the provider and whether authentication was available, never a credential value or credential-derived hash.
 
 Local Cockpits are private and untracked by default. A committed public Cockpit must come from a validated sanitized public export. Newly recommended skills inherit the same boundary and cannot be installed or used merely because they were recommended.
 
@@ -132,7 +132,7 @@ The public walkthrough completed all four human gates and 18 frozen runs on UCI 
 
 ### Governed Skill Recommendations
 
-When a concrete capability gap appears, Autoresearch may show up to three evidence-backed Recommendation Cards, preferring an already installed equivalent and always offering a no-new-skill option. Every newly introduced skill requires approval of its exact source, immutable version or commit, content hash, permissions, data boundary, and stage constraints **before** installation or use. A changed hash or permission set invalidates the old approval.
+When a concrete capability gap appears, ResearchHelm may show up to three evidence-backed Recommendation Cards, preferring an already installed equivalent and always offering a no-new-skill option. Every newly introduced skill requires approval of its exact source, immutable version or commit, content hash, permissions, data boundary, and stage constraints **before** installation or use. A changed hash or permission set invalidates the old approval.
 
 ### Migrating from v1
 
