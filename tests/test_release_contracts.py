@@ -54,9 +54,9 @@ def workflow_boundary_findings(text: str) -> list[str]:
         findings.append("credential.token_injection")
 
     approved_actions = {
-        "actions/checkout@v4",
-        "actions/setup-python@v5",
-        "actions/setup-node@v4",
+        "actions/checkout@v7",
+        "actions/setup-python@v6",
+        "actions/setup-node@v7",
     }
     canonical_uses_pattern = re.compile(
         r"^\s*-\s+uses:\s+(?P<action>[^\s#]+)\s*(?:#.*)?$"
@@ -176,17 +176,17 @@ class ReleaseContractTests(unittest.TestCase):
                 1,
             ),
             "checkout_floating_ref": ci.replace(
-                "uses: actions/checkout@v4",
+                "uses: actions/checkout@v7",
                 "uses: actions/checkout@main",
                 1,
             ),
             "setup_python_floating_ref": ci.replace(
-                "uses: actions/setup-python@v5",
+                "uses: actions/setup-python@v6",
                 "uses: actions/setup-python@main",
                 1,
             ),
             "setup_node_floating_ref": ci.replace(
-                "uses: actions/setup-node@v4",
+                "uses: actions/setup-node@v7",
                 "uses: actions/setup-node@main",
                 1,
             ),
@@ -202,7 +202,7 @@ class ReleaseContractTests(unittest.TestCase):
                 1,
             ),
             "named_checkout_floating_ref": ci.replace(
-                "      - uses: actions/checkout@v4",
+                "      - uses: actions/checkout@v7",
                 "      - name: Checkout\n        uses: actions/checkout@main",
                 1,
             ),
@@ -213,17 +213,17 @@ class ReleaseContractTests(unittest.TestCase):
                 1,
             ),
             "spaced_uses_key": ci.replace(
-                "- uses: actions/checkout@v4",
+                "- uses: actions/checkout@v7",
                 "- uses : actions/checkout@main",
                 1,
             ),
             "quoted_uses_value": ci.replace(
-                "- uses: actions/checkout@v4",
-                '- uses: "actions/checkout@v4"',
+                "- uses: actions/checkout@v7",
+                '- uses: "actions/checkout@v7"',
                 1,
             ),
             "flow_mapping_action": ci.replace(
-                "- uses: actions/checkout@v4",
+                "- uses: actions/checkout@v7",
                 "- {uses: example/unreviewed-action@main}",
                 1,
             ),
@@ -336,8 +336,8 @@ class ReleaseContractTests(unittest.TestCase):
             "if: steps.gh-version.outputs.needs-upgrade == 'true'",
         ):
             self.assertIn(phrase, text)
-        self.assertIn("actions/checkout@v4", text)
-        self.assertIn("actions/setup-python@v5", text)
+        self.assertIn("actions/checkout@v7", text)
+        self.assertIn("actions/setup-python@v6", text)
 
     def test_ci_installer_gate_is_isolated_and_pinned(self):
         text = read_workflow(CI_WORKFLOW)
@@ -346,7 +346,7 @@ class ReleaseContractTests(unittest.TestCase):
             "installer:",
             "runs-on: ubuntu-latest",
             "if: github.ref == 'refs/heads/master' && (github.event_name == 'workflow_dispatch' || github.event_name == 'push')",
-            "actions/setup-node@v4",
+            "actions/setup-node@v7",
             "node-version: \"24\"",
             "RUN_INSTALLER_TESTS: \"1\"",
             "skills@1.5.16",
@@ -378,7 +378,7 @@ class ReleaseContractTests(unittest.TestCase):
             "workflow_dispatch:",
             'branches: [master, "codex/**"]',
             "permissions:\n  contents: read",
-            "actions/checkout@v4",
+            "actions/checkout@v7",
             "fetch-depth: 0",
             "persist-credentials: false",
             "python skills/autoresearch/scripts/audit_release.py all --root . --ref HEAD",
